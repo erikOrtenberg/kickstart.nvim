@@ -3,7 +3,7 @@ return {
   enabled = true,
   opts = {
     ncmode = 'windows',
-    fadelevel = 0.8,
+    fadelevel = 0.6,
     tint = {
       bg = { rgb = { 0, 0, 0 }, intensity = 0.1 },
     },
