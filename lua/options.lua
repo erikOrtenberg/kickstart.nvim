@@ -116,3 +116,6 @@ vim.opt.wildignore:append {
   '*.rar',
   '*.7z',
 }
+
+-- Set what sessions to persist
+vim.opt.sessionoptions = { 'buffers', 'curdir', 'tabpages', 'winsize', 'help', 'globals', 'skiprtp', 'folds' }

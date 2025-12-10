@@ -80,8 +80,8 @@ return {
       -- or a suggestion from your LSP for this to activate.
       map('g.', vim.lsp.buf.code_action, '[G]oto Code [A]ction', { 'n', 'x' })
       --
-      --     -- Find references for the word under your cursor.
-      --     map('grr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
+      -- Find references for the word under your cursor.
+      map('grr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
       --
       -- Jump to the implementation of the word under your cursor.
       --  Useful when your language has ways of declaring types without an actual implementation.
@@ -101,10 +101,10 @@ return {
       --     --  Similar to document symbols, except searches over your entire project.
       --     map('gW', require('telescope.builtin').lsp_dynamic_workspace_symbols, 'Open Workspace Symbols')
       --
-      --     -- Jump to the type of the word under your cursor.
-      --     --  Useful when you're not sure what type a variable is and you want to see
-      --     --  the definition of its *type*, not where it was *defined*.
-      --     map('grt', require('telescope.builtin').lsp_type_definitions, '[G]oto [T]ype Definition')
+      -- Jump to the type of the word under your cursor.
+      --  Useful when you're not sure what type a variable is and you want to see
+      --  the definition of its *type*, not where it was *defined*.
+      map('grt', require('telescope.builtin').lsp_type_definitions, '[G]oto [T]ype Definition')
       --
       --     -- This function resolves a difference between neovim nightly (version 0.11) and stable (version 0.10)
       --     ---@param client vim.lsp.Client
@@ -217,7 +217,64 @@ return {
             },
           },
         },
-        -- pyright = {},
+
+        vtsls = {
+          -- explicitly add default filetypes, so that we can extend
+          -- them in related extras
+          filetypes = {
+            'javascript',
+            'javascriptreact',
+            'javascript.jsx',
+            'typescript',
+            'typescriptreact',
+            'typescript.tsx',
+          },
+          settings = {
+            complete_function_calls = true,
+            vtsls = {
+              enableMoveToFileCodeAction = true,
+              autoUseWorkspaceTsdk = true,
+              experimental = {
+                maxInlayHintLength = 30,
+                completion = {
+                  enableServerSideFuzzyMatch = true,
+                },
+              },
+            },
+            typescript = {
+              updateImportsOnFileMove = { enabled = 'always' },
+              suggest = {
+                completeFunctionCalls = true,
+              },
+            },
+          },
+
+          -- Copy TypeScript settings to JavaScript, like LazyVim
+          on_init = function(client)
+            client.config.settings.javascript = vim.tbl_deep_extend('force', {}, client.config.settings.typescript, client.config.settings.javascript or {})
+          end,
+        },
+
+        pyright = {
+          capabilities = {
+            textDocument = {
+              publishDiagnostics = {
+                tagSupport = {
+                  valueSet = { 2 },
+                },
+              },
+            },
+          },
+
+          -- root_dir = set_root_dir,
+          settings = {
+            python = {
+              analysis = {
+                typeCheckingMode = 'off',
+              },
+            },
+          },
+        },
         -- rust_analyzer = {},
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
         --
