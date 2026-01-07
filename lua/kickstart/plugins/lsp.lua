@@ -91,6 +91,10 @@ return {
       --  This is where a variable was first declared, or where a function is defined, etc.
       --  To jump back, press <C-t>.
       map('gd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
+      map('<leader>co', function()
+        vim.lsp.buf.code_action { apply = true, context = { only = { 'source.organizeImports' }, diagnostics = {} } }
+      end, 'Organize Imports')
+
       --
       --
       --     -- Fuzzy find all the symbols in your current document.
@@ -218,6 +222,16 @@ return {
           },
         },
 
+        eslint = {
+          on_attach = function(client)
+            client.server_capabilities.workspaceSymbolProvider = false
+          end,
+          workingDirectories = { { mode = 'auto' } },
+          validate = 'on', --
+          format = true,
+          -- root_dir = set_root_dir
+        },
+
         vtsls = {
           -- explicitly add default filetypes, so that we can extend
           -- them in related extras
@@ -284,6 +298,8 @@ return {
         -- But for many setups, the LSP (`ts_ls`) will work just fine
         -- ts_ls = {},
         --
+
+        prismals = {},
 
         lua_ls = {
           -- cmd = { ... },

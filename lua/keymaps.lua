@@ -84,3 +84,44 @@ vim.keymap.set('i', '<Up>', '<nop>')
 vim.keymap.set('i', '<Down>', '<nop>')
 vim.keymap.set('i', '<Left>', '<nop>')
 vim.keymap.set('i', '<Right>', '<nop>')
+
+-- [[ Diagnostics ]] --
+-----------------------
+local severities = {
+  vim.diagnostic.severity.ERROR,
+  vim.diagnostic.severity.WARN,
+  vim.diagnostic.severity.INFO,
+  vim.diagnostic.severity.HINT,
+}
+
+--- Jump to the diagnostic with the highest severity.
+---
+---@param count integer? The number of diagnostics to move by.
+local function jump_to_diagnostic(count)
+  for _, severity in ipairs(severities) do
+    local diagnostics = vim.diagnostic.get(0, { severity = severity })
+    if #diagnostics > 0 then
+      vim.diagnostic.jump {
+        count = count,
+        float = false,
+        severity = severity,
+      }
+      break
+    end
+  end
+end
+
+vim.keymap.set('n', '<leader>en', function()
+  jump_to_diagnostic(1)
+end, { desc = 'Go to next diagnostic', remap = true })
+
+vim.keymap.set('n', '<leader>ep', function()
+  vim.diagnostic.jump { count = -1, float = true, severity = vim.diagnostic.severity.ERROR }
+end, { desc = 'Go to previous diagnostic', remap = true })
+
+vim.keymap.set('n', '<leader>ek', vim.diagnostic.open_float, { desc = 'Show full error', remap = true })
+
+-- vim.keymap.set('n', '<leader>el', '<cmd>Trouble diagnostics<cr>', { desc = 'Show all diagnostics' })
+-- vim.keymap.set("n", "<leader>eL", "<cmd>Trouble workspace_diagnostics<cr>", { desc = "Show all diagnostics in workspace" })
+--
+vim.keymap.set('n', '<leader>ef', '<cmd>LspEslintFixAll<cr>', { desc = 'Fix all eslint errors' })
