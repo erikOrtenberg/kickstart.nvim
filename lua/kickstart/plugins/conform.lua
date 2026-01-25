@@ -37,6 +37,7 @@ return { -- Autoformat
     formatters_by_ft = {
       lua = { 'stylua' },
       go = { 'goimports', 'gofmt', 'goimports-reviser' },
+      python = { 'black' },
     },
     formatters = {
       ['goimports-reviser'] = {
