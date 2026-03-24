@@ -1,3 +1,4 @@
+-- Formatter
 local M = {}
 
 local supported = {

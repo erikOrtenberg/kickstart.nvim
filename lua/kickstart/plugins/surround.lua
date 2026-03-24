@@ -1,4 +1,4 @@
-return {
+return { -- Surrond tool (double from mini?)
   {
     'kylechui/nvim-surround',
     version = '*',

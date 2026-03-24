@@ -1,9 +1,3 @@
--- return {
--- 	'stevearc/conform.nvim',
--- 	event = {"BufWritePre"},
--- 	opts = {},
--- }
-
 return { -- Autoformat
   'stevearc/conform.nvim',
   event = { 'BufWritePre' },

@@ -1,4 +1,4 @@
-return {
+return { -- Gray out inactive windows
   'tadaa/vimade',
   enabled = true,
   opts = {

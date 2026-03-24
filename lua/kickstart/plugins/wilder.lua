@@ -1,4 +1,4 @@
-return {
+return { -- Makes command suggestions have autocomplete suggestions
   'gelguy/wilder.nvim',
   config = function()
     local wilder = require 'wilder'

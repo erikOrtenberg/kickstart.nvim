@@ -1,4 +1,4 @@
-return {
+return { -- Developer tools for Go
   'olexsmir/gopher.nvim',
   ft = 'go',
   config = function(_, opts)

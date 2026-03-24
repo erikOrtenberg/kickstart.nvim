@@ -1,4 +1,4 @@
-return {
+return { -- Shows git commit for current line
   'f-person/git-blame.nvim',
   -- load the plugin at startup
   event = 'VeryLazy',

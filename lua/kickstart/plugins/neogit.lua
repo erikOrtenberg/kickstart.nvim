@@ -1,4 +1,4 @@
-return {
+return { -- Git client in NeoVim
   'NeogitOrg/neogit',
   lazy = true,
   dependencies = {

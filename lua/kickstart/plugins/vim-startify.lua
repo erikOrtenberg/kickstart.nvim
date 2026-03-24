@@ -1,4 +1,4 @@
-return {
+return { -- Start page to load sessions and recent files
   {
     'mhinz/vim-startify',
     -- enabled = false,
